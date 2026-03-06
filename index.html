@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beergarita | Cozy Pub & Craft Beer - Beşiktaş</title>
+    <meta name="description" content="Beşiktaş Gayrettepe'de samimi ve rahat bir pub deneyimi. Harika craft biralar, nefis hamburgerler ve pizzalar eşliğinde keyifli vakit geçirin.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        // Sıcak, ahşap ve bira tonları (Prompt'a özel renk paleti)
+                        pub: {
+                            50: '#FDF8F5',  // Krem arkaplan
+                            100: '#FBE8DC',
+                            200: '#F5CBAF',
+                            300: '#EFA679',
+                            400: '#E67B3B',
+                            500: '#D97706', // Bira sarısı / Turuncu
+                            600: '#B45309', // Koyu amber
+                            700: '#92400E', // Açık ahşap
+                            800: '#78350F', // Koyu ahşap
+                            900: '#451A03', // Çok koyu ahşap / Metin
+                            950: '#290F02',
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(120, 53, 15, 0.1)',
+                        'glass-hover': '0 8px 32px 0 rgba(217, 119, 6, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-dark {
+            background: rgba(69, 26, 3, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Swiper Customization */
+        .swiper-pagination-bullet { background: #D97706 !important; }
+        .swiper-pagination-bullet-active { background: #78350F !important; width: 24px !important; border-radius: 8px !important; transition: all 0.3s ease; }
+        
+        /* Smooth Selection */
+        ::selection { background-color: #D97706; color: white; }
+    </style>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body class="bg-pub-50 text-pub-900 antialiased overflow-x-hidden relative">
+
+    <!-- Dekoratif Arkaplan Blur Efektleri -->
+    <div class="fixed top-0 left-0 w-96 h-96 bg-pub-200/40 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 animate-pulse"></div>
+    <div class="fixed top-1/4 right-0 w-96 h-96 bg-pub-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 animate-pulse" style="animation-delay: 2s;"></div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-panel" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-8 h-8 text-pub-500 group-hover:text-pub-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M6.91 19.363A2 2 0 009 21h6a2 2 0 002.09-1.637L19 12H5l1.91 7.363z"></path></svg>
+                    <span class="font-poppins font-bold text-2xl tracking-tight text-pub-900">Beergarita</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#hakkimizda" class="font-medium text-pub-800 hover:text-pub-500 transition-colors cursor-pointer">Hakkımızda</a>
+                    <a href="#menu" class="font-medium text-pub-800 hover:text-pub-500 transition-colors cursor-pointer">Menü</a>
+                    <a href="#galeri" class="font-medium text-pub-800 hover:text-pub-500 transition-colors cursor-pointer">Galeri</a>
+                    <a href="#yorumlar" class="font-medium text-pub-800 hover:text-pub-500 transition-colors cursor-pointer">Yorumlar</a>
+                    <a href="#iletisim" class="font-medium text-pub-800 hover:text-pub-500 transition-colors cursor-pointer">İletişim</a>
+                    <a href="https://wa.me/902122134046" target="_blank" class="bg-pub-600 hover:bg-pub-700 text-white px-5 py-2.5 rounded-full font-medium transition-all duration-300 shadow-lg shadow-pub-600/30 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Rezervasyon
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-pub-900 hover:text-pub-600 focus:outline-none cursor-pointer p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-white/40 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#hakkimizda" class="block px-3 py-2 text-base font-medium text-pub-800 hover:text-pub-600 hover:bg-white/50 rounded-lg cursor-pointer">Hakkımızda</a>
+                <a href="#menu" class="block px-3 py-2 text-base font-medium text-pub-800 hover:text-pub-600 hover:bg-white/50 rounded-lg cursor-pointer">Menü</a>
+                <a href="#galeri" class="block px-3 py-2 text-base font-medium text-pub-800 hover:text-pub-600 hover:bg-white/50 rounded-lg cursor-pointer">Galeri</a>
+                <a href="#yorumlar" class="block px-3 py-2 text-base font-medium text-pub-800 hover:text-pub-600 hover:bg-white/50 rounded-lg cursor-pointer">Yorumlar</a>
+                <a href="#iletisim" class="block px-3 py-2 text-base font-medium text-pub-800 hover:text-pub-600 hover:bg-white/50 rounded-lg cursor-pointer">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20">
+        <!-- Arkaplan Görseli (Cozy Pub Atmosphere) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1934&auto=format&fit=crop" alt="Beergarita Pub Interior" class="w-full h-full object-cover object-center" />
+            <!-- Koyu Ahşap/Sıcak Ton Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-pub-950/90 via-pub-900/70 to-pub-950/80"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center lg:flex-row lg:items-center lg:justify-between gap-12">
+            
+            <!-- Hero İçerik -->
+            <div class="lg:w-1/2 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-pub-200 text-sm font-medium mb-6">
+                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    4.7/5 Mükemmel Puan (895 Yorum)
+                </div>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-poppins font-bold text-white leading-tight mb-6">
+                    İyi Bira, <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pub-400 to-pub-200">Samimi Ortam.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 font-sans mb-8 max-w-2xl mx-auto lg:mx-0">
+                    Gayrettepe'nin kalbinde, ahşabın sıcaklığı ve craft biranın eşsiz lezzetleri. Gecenin ikisine kadar nefis hamburgerler, pizzalar ve dost meclisi.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#menu" class="bg-pub-500 hover:bg-pub-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-[0_0_20px_rgba(217,119,6,0.4)] hover:shadow-[0_0_30px_rgba(217,119,6,0.6)] hover:-translate-y-1 text-center cursor-pointer">
+                        Menüyü İncele
+                    </a>
+                    <a href="https://maps.google.com/?cid=2249468400779735654&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA" target="_blank" class="glass-dark hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer border border-white/30">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Yol Tarifi Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image/Glass Card -->
+            <div class="lg:w-1/2 relative hidden md:block" data-aos="fade-left" data-aos-duration="1200">
+                <div class="glass-panel p-4 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl border-white/20">
+                    <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2070&auto=format&fit=crop" alt="Craft Beer" class="rounded-2xl w-full h-[400px] object-cover shadow-inner">
+                    <div class="absolute -bottom-6 -left-6 glass-dark p-4 rounded-2xl flex items-center gap-4 animate-bounce">
+                        <div class="bg-green-500 w-3 h-3 rounded-full"></div>
+                        <p class="text-white font-medium">Şu an açığız! (02:00'ye kadar)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES STRIP (Glassmorphism) -->
+    <div class="relative z-20 -mt-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-panel rounded-2xl shadow-glass p-6 md:p-8 flex flex-wrap justify-between items-center gap-6" data-aos="fade-up">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-pub-100 flex items-center justify-center text-pub-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-poppins font-bold text-pub-900">Cozy Atmosfer</h3>
+                    <p class="text-sm text-pub-700">Rahat ve samimi</p>
+                </div>
+            </div>
+            <div class="hidden md:block w-px h-12 bg-pub-900/10"></div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-pub-100 flex items-center justify-center text-pub-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-poppins font-bold text-pub-900">Geniş Bira Menüsü</h3>
+                    <p class="text-sm text-pub-700">Yerel ve craft seçenekler</p>
+                </div>
+            </div>
+            <div class="hidden lg:block w-px h-12 bg-pub-900/10"></div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-pub-100 flex items-center justify-center text-pub-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-poppins font-bold text-pub-900">Geç Saate Kadar</h3>
+                    <p class="text-sm text-pub-700">Her gün 02:00'ye kadar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. HAKKIMIZDA -->
+    <section id="hakkimizda" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 relative" data-aos="fade-right">
+                    <!-- Deco elements -->
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-pub-300/30 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-pub-500/20 rounded-full blur-2xl"></div>
+                    
+                    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=1974&auto=format&fit=crop" alt="Pub Atmosphere" class="rounded-3xl shadow-2xl relative z-10 w-full object-cover h-[500px]">
+                    <div class="absolute top-1/2 -right-8 transform -translate-y-1/2 glass-panel p-6 rounded-2xl shadow-glass z-20 w-48 hidden md:block border-l-4 border-l-pub-500">
+                        <p class="font-poppins font-bold text-3xl text-pub-900">4.7</p>
+                        <p class="text-sm text-pub-700">Google Haritalar Puanı</p>
+                        <div class="flex text-yellow-500 mt-2 text-sm">★★★★★</div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <h4 class="text-pub-600 font-bold tracking-wider uppercase text-sm mb-2">Hakkımızda</h4>
+                    <h2 class="text-4xl md:text-5xl font-poppins font-bold text-pub-900 mb-6">Şehrin Karmaşasında Bir Mola Noktası</h2>
+                    <p class="text-pub-800 text-lg mb-6 leading-relaxed">
+                        Beergarita olarak, Gayrettepe'nin kalbinde size kendinizi evinizde hissettirecek "cozy" ve rahat bir mekan sunuyoruz. Ahşap dokuların sıcaklığı ve loş aydınlatmamız eşliğinde, iş çıkışı günün yorgunluğunu atmak veya dostlarınızla uzun sohbetlere dalmak için ideal bir atmosfer yarattık.
+                    </p>
+                    <p class="text-pub-800 text-lg mb-8 leading-relaxed">
+                        Sigara içilen ve içilmeyen ayrı alanlarımız, güler yüzlü ekibimiz ve damak tadınıza uygun bira önerilerimizle her ziyaretinizi özel kılıyoruz.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass-panel p-4 rounded-xl">
+                            <h5 class="font-bold text-pub-900 mb-1">Yerel Lezzetler</h5>
+                            <p class="text-sm text-pub-700">Farklı craft bira çeşitleri</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl">
+                            <h5 class="font-bold text-pub-900 mb-1">Uygun Fiyat</h5>
+                            <p class="text-sm text-pub-700">Kalite ve bütçe dostu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. MENÜ HIGHLIGHTS -->
+    <section id="menu" class="py-24 bg-pub-900 relative text-white">
+        <!-- Arkaplan Doku (Subtle Wood/Dark pattern) -->
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h4 class="text-pub-400 font-bold tracking-wider uppercase text-sm mb-2">Lezzetlerimiz</h4>
+                <h2 class="text-4xl md:text-5xl font-poppins font-bold mb-4">Favori Seçenekler</h2>
+                <p class="text-pub-200 max-w-2xl mx-auto">Sadece iyi bira değil, yanında efsaneleşmiş lezzetler sunuyoruz. Porsiyonlarımızla iddialıyız.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="glass-dark p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-white/10 group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1575037614876-c385807ee00d?q=80&w=2070&auto=format&fit=crop" alt="Craft Bira" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="text-2xl font-poppins font-bold mb-3 text-pub-200">Geniş Bira Seçkisi</h3>
+                    <p class="text-gray-400 mb-4">Yerli ve yabancı fıçı biralar, özenle seçilmiş craft lezzetler. Garsonlarımız seçiminizde yardımcı olmaktan mutluluk duyar.</p>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="glass-dark p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-white/10 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1899&auto=format&fit=crop" alt="Efsane Hamburger" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="text-2xl font-poppins font-bold mb-3 text-pub-200">Efsane Hamburger</h3>
+                    <p class="text-gray-400 mb-4">Müşterilerimizin vazgeçilmezi. %100 dana eti, özel soslar ve yanında çıtır patates kızartması ile.</p>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="glass-dark p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-white/10 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop" alt="Dev Pizza" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="text-2xl font-poppins font-bold mb-3 text-pub-200">Doyurucu Pizza</h3>
+                    <p class="text-gray-400 mb-4">Tek kişi için oldukça büyük porsiyonlar! İnce hamur, bol malzeme ve yanında buz gibi bir bira ile ideal.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#iletisim" class="inline-block bg-pub-500 hover:bg-pub-600 text-white px-8 py-3 rounded-full font-semibold transition-colors shadow-lg cursor-pointer">Sipariş & Rezervasyon</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. YORUMLAR (Swiper) -->
+    <section id="yorumlar" class="py-24 relative overflow-hidden bg-pub-100">
+        <!-- Dekorasyon -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-pub-300/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-white/40 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h4 class="text-pub-600 font-bold tracking-wider uppercase text-sm mb-2">Müşteri Deneyimi</h4>
+                <h2 class="text-4xl md:text-5xl font-poppins font-bold text-pub-900 mb-4">Sizden Gelenler</h2>
+                <div class="flex items-center justify-center gap-2 text-2xl font-bold text-pub-900">
+                    <span class="text-yellow-500 flex">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </span>
+                    4.7 / 5.0 (895 Değerlendirme)
+                </div>
+            </div>
+
+            <!-- Swiper Container -->
+            <div class="swiper reviewSwiper pb-16" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    <!-- Yorum 1 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-panel p-8 rounded-3xl shadow-glass h-full flex flex-col justify-between border-t-4 border-t-pub-500 cursor-grab">
+                            <div>
+                                <div class="flex items-center gap-4 mb-6">
+                                    <img src="https://lh3.googleusercontent.com/a-/ALV-UjXxePOY5XIa13g5QbJD3WZmaxCP5LGyrvznr6QmEt3rkGlHFUTH=s128-c0x00000000-cc-rp-mo-ba5" alt="Murat Şen" class="w-14 h-14 rounded-full border-2 border-pub-200">
+                                    <div>
+                                        <h4 class="font-poppins font-bold text-pub-900 text-lg">Murat Şen</h4>
+                                        <div class="flex text-yellow-500 text-sm">★★★★★</div>
+                                    </div>
+                                </div>
+                                <p class="text-pub-800 italic leading-relaxed">"Oldukça keyifli, cozy bir mekan. Ankara'dan iş için geldim, otelimin hemen yanında böyle bir yer olmasına sevindim. Bira fiyatı oldukça iyi. Hamburgeri efsaneydi. Gece 2:00'ye kadar aciklarmis. Vakit geçirmek ve sohbet etmek için harika bir seçenek."</p>
+                            </div>
+                            <div class="text-xs text-pub-500 mt-6 font-medium">15 Aralık 2023</div>
+                        </div>
+                    </div>
+
+                    <!-- Yorum 2 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-panel p-8 rounded-3xl shadow-glass h-full flex flex-col justify-between border-t-4 border-t-pub-500 cursor-grab">
+                            <div>
+                                <div class="flex items-center gap-4 mb-6">
+                                    <img src="https://lh3.googleusercontent.com/a-/ALV-UjVG5p0FJ5XllaP09cZi4pLRMH0SnrErQ77J4ulN_p7obp-0HpkM=s128-c0x00000000-cc-rp-mo-ba4" alt="Melis Akıncı" class="w-14 h-14 rounded-full border-2 border-pub-200">
+                                    <div>
+                                        <h4 class="font-poppins font-bold text-pub-900 text-lg">Melis Akıncı</h4>
+                                        <div class="flex text-yellow-500 text-sm">★★★★★</div>
+                                    </div>
+                                </div>
+                                <p class="text-pub-800 italic leading-relaxed">"farklı biralar deneyebileceğiniz tatlı bi pub. sigara içilen-içilmeyen alanının ayrı olması güzeldi. garsonun sundukları biralar hakkında bigisi vardı ve bizim seçmemize yardımcı oldu."</p>
+                            </div>
+                            <div class="text-xs text-pub-500 mt-6 font-medium">29 Ocak 2024</div>
+                        </div>
+                    </div>
+
+                    <!-- Yorum 3 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-panel p-8 rounded-3xl shadow-glass h-full flex flex-col justify-between border-t-4 border-t-pub-500 cursor-grab">
+                            <div>
+                                <div class="flex items-center gap-4 mb-6">
+                                    <img src="https://lh3.googleusercontent.com/a/ACg8ocICSi3qBO8m7tei6ujEt5fyBM26cEZ8eN5rU93P2P8eTXoSrw=s128-c0x00000000-cc-rp-mo-ba4" alt="tayfun parilti" class="w-14 h-14 rounded-full border-2 border-pub-200">
+                                    <div>
+                                        <h4 class="font-poppins font-bold text-pub-900 text-lg">Tayfun Parıltı</h4>
+                                        <div class="flex text-yellow-500 text-sm">★★★★★</div>
+                                    </div>
+                                </div>
+                                <p class="text-pub-800 italic leading-relaxed">"Kaldigin otele cok yakin. Muzikleri, calisanlari cok iyi. Gun bitimi 1-2 bira yaninda atirstirmalik icin ideal. Pizza porsiyonlari oldukca buyuk tek kisi icin. Hamburgerleri gayet lezzetli. Bence memnun kalirsin denemediysen hala"</p>
+                            </div>
+                            <div class="text-xs text-pub-500 mt-6 font-medium">21 Ocak 2024</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. GALERİ (GLightbox) -->
+    <!-- Not: İstenen URL'ler Google Maps sayfa linkleri olduğu için, yüksek kaliteli, pub konseptine uygun temsilî fotoğraflar kullanılmıştır. -->
+    <section id="galeri" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h4 class="text-pub-600 font-bold tracking-wider uppercase text-sm mb-2">Atmosfer</h4>
+                <h2 class="text-4xl md:text-5xl font-poppins font-bold text-pub-900">Beergarita'dan Kareler</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Gallery Items -->
+                <a href="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1934&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64" data-aos="zoom-in" data-aos-delay="0">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop" alt="Pub Interior" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+
+                <a href="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?q=80&w=2072&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?q=80&w=800&auto=format&fit=crop" alt="Craft Beer Pour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+
+                <a href="https://images.unsplash.com/photo-1586896652273-99ce846f4158?q=80&w=2070&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64 md:col-span-2" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1586896652273-99ce846f4158?q=80&w=1200&auto=format&fit=crop" alt="Hamburger and Fries" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+
+                <a href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64 md:col-span-2" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop" alt="Friends drinking" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+
+                <a href="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?q=80&w=1967&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?q=80&w=800&auto=format&fit=crop" alt="Pizza" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+
+                <a href="https://images.unsplash.com/photo-1563514995-1f8cb17cd2ba?q=80&w=1974&auto=format&fit=crop" class="glightbox group relative block overflow-hidden rounded-2xl cursor-pointer shadow-md h-48 md:h-64" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1563514995-1f8cb17cd2ba?q=80&w=800&auto=format&fit=crop" alt="Beer Flight" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-pub-900/0 group-hover:bg-pub-900/40 transition-colors duration-300 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ÇALIŞMA SAATLERİ & HARİTA -->
+    <section class="py-24 bg-pub-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8 glass-panel rounded-3xl overflow-hidden shadow-xl border-white/60">
+                
+                <!-- Çalışma Saatleri -->
+                <div class="lg:w-1/3 p-8 lg:p-12 bg-pub-900 text-white relative overflow-hidden" data-aos="fade-right">
+                    <!-- Deco bg -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pub-500/20 rounded-full blur-2xl"></div>
+                    
+                    <h3 class="text-3xl font-poppins font-bold mb-8 relative z-10">Çalışma Saatleri</h3>
+                    
+                    <ul class="space-y-4 relative z-10 text-pub-100">
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Pazartesi</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Salı</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Çarşamba</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Perşembe</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Cuma</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-pub-700/50 pb-2">
+                            <span>Cumartesi</span>
+                            <span class="font-medium">12:00 – 02:00</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2 text-pub-300 font-bold">
+                            <span>Pazar</span>
+                            <span>15:00 – 02:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Harita -->
+                <div class="lg:w-2/3 min-h-[400px] relative" data-aos="fade-left">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.3585093557577!2d29.004204115415715!3d41.06620057929427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7438dfc9bff%3A0x1f37b797a1f13266!2sBeergarita!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
+                        class="absolute inset-0 w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. İLETİŞİM & FOOTER -->
+    <footer id="iletisim" class="bg-pub-950 text-pub-100 pt-20 pb-10 relative border-t-8 border-pub-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6 group cursor-pointer">
+                        <svg class="w-8 h-8 text-pub-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M6.91 19.363A2 2 0 009 21h6a2 2 0 002.09-1.637L19 12H5l1.91 7.363z"></path></svg>
+                        <span class="font-poppins font-bold text-2xl text-white">Beergarita</span>
+                    </a>
+                    <p class="text-pub-300 text-sm leading-relaxed mb-6">
+                        Gayrettepe'nin en samimi pub'ı. Kaliteli craft biralar, devasa hamburgerler ve sıcak bir atmosfer için bizi ziyaret edin.
+                    </p>
+                </div>
+
+                <!-- İletişim Bilgileri -->
+                <div class="lg:col-span-2">
+                    <h4 class="font-poppins font-bold text-lg text-white mb-6">İletişim</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-pub-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="text-pub-200">Gayrettepe, Yıldız Posta Cd., 34349 Beşiktaş/İstanbul, Türkiye</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-pub-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <a href="tel:+902122134046" class="text-pub-200 hover:text-white transition-colors cursor-pointer">+90 212 213 40 46</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-6 flex gap-4">
+                        <a href="https://wa.me/902122134046" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-medium transition-colors flex items-center gap-2 cursor-pointer shadow-lg">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WhatsApp
+                        </a>
+                        <a href="https://maps.google.com/?cid=2249468400779735654&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA" target="_blank" class="bg-pub-800 hover:bg-pub-700 text-white px-6 py-2 rounded-full font-medium transition-colors flex items-center gap-2 cursor-pointer shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path></svg>
+                            Yol Tarifi
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hızlı Menü -->
+                <div class="lg:col-span-1">
+                    <h4 class="font-poppins font-bold text-lg text-white mb-6">Hızlı Menü</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#hakkimizda" class="text-pub-300 hover:text-pub-500 transition-colors cursor-pointer">Hakkımızda</a></li>
+                        <li><a href="#menu" class="text-pub-300 hover:text-pub-500 transition-colors cursor-pointer">Menü Seçenekleri</a></li>
+                        <li><a href="#galeri" class="text-pub-300 hover:text-pub-500 transition-colors cursor-pointer">Galeri</a></li>
+                        <li><a href="#yorumlar" class="text-pub-300 hover:text-pub-500 transition-colors cursor-pointer">Yorumlar</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-pub-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-pub-400">
+                <p>&copy; 2024 Beergarita. Tüm hakları saklıdır.</p>
+                <p class="mt-2 md:mt-0">İstanbul, Beşiktaş</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // AOS Initialize
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+        });
+
+        // GLightbox Initialize
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: true
+        });
+
+        // Swiper Initialize
+        const swiper = new Swiper('.reviewSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            }
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-glass');
+                navbar.classList.replace('bg-transparent', 'glass-panel');
+            } else {
+                navbar.classList.remove('shadow-glass');
+                // At the very top, make it slightly more transparent if needed, or keep glass
+            }
+        });
+    </script>
+</body>
+</html>
